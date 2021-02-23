@@ -3,7 +3,7 @@
 		<TargetFramework>Net5.0</TargetFramework>
 		<LangVersion>8.0</LangVersion>
 		<PackageId>NetCoreNamedPipeWrapper</PackageId>
-		<PackageProjectUrl>https://github.com/Joebu/named-pipe-wrapper</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Joebu/NamedPipeWrapper</PackageProjectUrl>
 		<Description>Create named pipe servers that can handle multiple client connections simultaneously.
 
 Send strongly-typed messages between clients and servers: any serializable .NET object can be sent over a pipe and will be automatically serialized/deserialized, including cyclical references and complex object graphs.
@@ -14,6 +14,8 @@ Supports large messages - up to 300 MiB.
 
 The package was forked from NamedPipeWrapper 1.4.0 creadted by Andrew C. Dvorak and the original project url is https://github.com/acdvorak/named-pipe-wrapper.</Description>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageTags>namedpipe pipe .netcore</PackageTags>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="System.IO.Pipes.AccessControl" Version="5.0.0" />
