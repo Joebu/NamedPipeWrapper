@@ -15,7 +15,7 @@ Supports large messages - up to 300 MiB.
 The package was forked from NamedPipeWrapper 1.4.0 creadted by Andrew C. Dvorak and the original project url is https://github.com/acdvorak/named-pipe-wrapper.</Description>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>namedpipe pipe .netcore</PackageTags>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="System.IO.Pipes.AccessControl" Version="5.0.0" />
