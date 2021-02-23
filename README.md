@@ -1,6 +1,6 @@
 # Named Pipe Wrapper for .Net 5.0
 
-## The package was forked from NamedPipeWrapper 1.4.0 creadted by Andrew C. Dvorak and the original project url is https://github.com/acdvorak/named-pipe-wrapper.
+## This repository was forked from NamedPipeWrapper 1.4.0 creadted by Andrew C. Dvorak and the original project url is https://github.com/acdvorak/named-pipe-wrapper.
 
 A simple, easy to use, strongly-typed wrapper around .NET 5.0 named pipes.
 
