@@ -6,7 +6,7 @@ A simple, easy to use, strongly-typed wrapper around .NET 5.0 named pipes.
 
 # NuGet Package
 
-Available as a [NuGet package](https://www.nuget.org/packages/NamedPipeWrapper/).
+Available as a [NuGet package](https://www.nuget.org/packages/NetCoreNamedPipeWrapper/).
 
 # Features
 
