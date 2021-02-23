@@ -289,7 +289,6 @@ namespace NamedPipeWrapper
                 {
                     security.AddAccessRule(rule);
                 };
-                security.SetAccessRule(new System.IO.Pipes.PipeAccessRule("Everyone", System.IO.Pipes.PipeAccessRights.FullControl, System.Security.AccessControl.AccessControlType.Allow));
             }
             return serverStream;
         }
