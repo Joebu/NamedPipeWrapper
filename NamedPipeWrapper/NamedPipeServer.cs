@@ -2,6 +2,7 @@
 using NamedPipeWrapper.Threading;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Pipes;
 
 namespace NamedPipeWrapper
@@ -25,8 +26,8 @@ namespace NamedPipeWrapper
         /// Constructs a new <c>NamedPipeServer</c> object that listens for client connections on the given <paramref name="pipeName"/>.
         /// </summary>
         /// <param name="pipeName">Name of the pipe to listen on</param>
-        public NamedPipeServer(string pipeName, params PipeAccessRule[] pipeAccessRules)
-            : base(pipeName, pipeAccessRules)
+        public NamedPipeServer(string pipeName, PipeSecurity pipeSecurity)
+            : base(pipeName, pipeSecurity)
         {
         }
     }
@@ -61,7 +62,7 @@ namespace NamedPipeWrapper
         public event PipeExceptionEventHandler Error;
 
         private readonly string _pipeName;
-        private readonly PipeAccessRule[] pipeAccessRules;
+        private readonly PipeSecurity pipeSecurity;
         private readonly List<NamedPipeConnection<TRead, TWrite>> _connections = new List<NamedPipeConnection<TRead, TWrite>>();
 
         private int _nextPipeId;
@@ -73,10 +74,10 @@ namespace NamedPipeWrapper
         /// Constructs a new <c>NamedPipeServer</c> object that listens for client connections on the given <paramref name="pipeName"/>.
         /// </summary>
         /// <param name="pipeName">Name of the pipe to listen on</param>
-        public Server(string pipeName, params PipeAccessRule[] pipeAccessRules)
+        public Server(string pipeName, PipeSecurity pipeSecurity)
         {
             _pipeName = pipeName;
-            this.pipeAccessRules = pipeAccessRules;
+            this.pipeSecurity = pipeSecurity;
         }
 
         /// <summary>
@@ -156,12 +157,12 @@ namespace NamedPipeWrapper
             _isRunning = true;
             while (_shouldKeepRunning)
             {
-                WaitForConnection(_pipeName, pipeAccessRules);
+                WaitForConnection(_pipeName, pipeSecurity);
             }
             _isRunning = false;
         }
 
-        private void WaitForConnection(string pipeName, PipeAccessRule[] pipeAccessRules)
+        private void WaitForConnection(string pipeName, PipeSecurity pipeSecurity = null)
         {
             NamedPipeServerStream handshakePipe = null;
             NamedPipeServerStream dataPipe = null;
@@ -172,14 +173,14 @@ namespace NamedPipeWrapper
             try
             {
                 // Send the client the name of the data pipe to use
-                handshakePipe = PipeServerFactory.CreateAndConnectPipe(pipeName, pipeAccessRules);
+                handshakePipe = PipeServerFactory.CreateAndConnectPipe(pipeName, pipeSecurity);
                 var handshakeWrapper = new PipeStreamWrapper<string, string>(handshakePipe);
                 handshakeWrapper.WriteObject(connectionPipeName);
                 handshakeWrapper.WaitForPipeDrain();
                 handshakeWrapper.Close();
 
                 // Wait for the client to connect to the data pipe
-                dataPipe = PipeServerFactory.CreatePipe(connectionPipeName, pipeAccessRules);
+                dataPipe = PipeServerFactory.CreatePipe(connectionPipeName, pipeSecurity);
                 dataPipe.WaitForConnection();
 
                 // Add the client's connection to the list of connections
@@ -271,26 +272,16 @@ namespace NamedPipeWrapper
 
     static class PipeServerFactory
     {
-        public static NamedPipeServerStream CreateAndConnectPipe(string pipeName, PipeAccessRule[] pipeAccessRules)
+        public static NamedPipeServerStream CreateAndConnectPipe(string pipeName, PipeSecurity pipeSecurity = null)
         {
-            var pipe = CreatePipe(pipeName, pipeAccessRules);
+            var pipe = CreatePipe(pipeName, pipeSecurity);
             pipe.WaitForConnection();
             return pipe;
         }
 
-        public static NamedPipeServerStream CreatePipe(string pipeName, PipeAccessRule[] pipeAccessRules)
+        public static NamedPipeServerStream CreatePipe(string pipeName, PipeSecurity pipeSecurity = null)
         {
-            var serverStream = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous | PipeOptions.WriteThrough, 0, 0);
-            if (pipeAccessRules?.Length > 0)
-            {
-                var security = new System.IO.Pipes.PipeSecurity();
-                serverStream.SetAccessControl(security);
-                foreach (var rule in pipeAccessRules)
-                {
-                    security.AddAccessRule(rule);
-                };
-            }
-            return serverStream;
+            return NamedPipeServerStreamConstructors.New(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous | PipeOptions.WriteThrough, 0, 0, pipeSecurity);
         }
     }
 }

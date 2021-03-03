@@ -19,7 +19,9 @@ namespace ExampleCLI
         public MyServer(string pipeName)
         {
             var rule = new System.IO.Pipes.PipeAccessRule("Everyone", System.IO.Pipes.PipeAccessRights.FullControl, System.Security.AccessControl.AccessControlType.Allow);
-            var server = new NamedPipeServer<MyMessage>(pipeName, rule);
+            var security = new System.IO.Pipes.PipeSecurity();
+            security.AddAccessRule(rule);
+            var server = new NamedPipeServer<MyMessage>(pipeName, security);
             server.ClientConnected += OnClientConnected;
             server.ClientDisconnected += OnClientDisconnected;
             server.ClientMessage += OnClientMessage;
