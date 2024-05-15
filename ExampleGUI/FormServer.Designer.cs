@@ -28,142 +28,138 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxMessage = new System.Windows.Forms.TextBox();
-            this.buttonSend = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.richTextBoxMessages = new System.Windows.Forms.RichTextBox();
-            this.listBoxClients = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            textBoxMessage = new System.Windows.Forms.TextBox();
+            buttonSend = new System.Windows.Forms.Button();
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            richTextBoxMessages = new System.Windows.Forms.RichTextBox();
+            listBoxClients = new System.Windows.Forms.ListBox();
+            label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Client Messages:";
+            label1.AutoSize = true;
+            label1.Dock = System.Windows.Forms.DockStyle.Top;
+            label1.Location = new System.Drawing.Point(0, 0);
+            label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(143, 25);
+            label1.TabIndex = 0;
+            label1.Text = "Client Messages:";
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 407);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Publish to clients:";
+            label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(20, 678);
+            label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(149, 25);
+            label2.TabIndex = 2;
+            label2.Text = "Publish to clients:";
             // 
             // textBoxMessage
             // 
-            this.textBoxMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxMessage.Location = new System.Drawing.Point(125, 404);
-            this.textBoxMessage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBoxMessage.Name = "textBoxMessage";
-            this.textBoxMessage.Size = new System.Drawing.Size(375, 23);
-            this.textBoxMessage.TabIndex = 3;
+            textBoxMessage.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            textBoxMessage.Location = new System.Drawing.Point(179, 673);
+            textBoxMessage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            textBoxMessage.Name = "textBoxMessage";
+            textBoxMessage.Size = new System.Drawing.Size(534, 31);
+            textBoxMessage.TabIndex = 3;
             // 
             // buttonSend
             // 
-            this.buttonSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSend.Location = new System.Drawing.Point(507, 402);
-            this.buttonSend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonSend.Name = "buttonSend";
-            this.buttonSend.Size = new System.Drawing.Size(88, 27);
-            this.buttonSend.TabIndex = 4;
-            this.buttonSend.Text = "&Send";
-            this.buttonSend.UseVisualStyleBackColor = true;
-            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
+            buttonSend.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            buttonSend.Location = new System.Drawing.Point(724, 670);
+            buttonSend.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            buttonSend.Name = "buttonSend";
+            buttonSend.Size = new System.Drawing.Size(126, 45);
+            buttonSend.TabIndex = 4;
+            buttonSend.Text = "&Send";
+            buttonSend.UseVisualStyleBackColor = true;
+            buttonSend.Click += buttonSend_Click;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(14, 14);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.splitContainer1.Name = "splitContainer1";
+            splitContainer1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            splitContainer1.Location = new System.Drawing.Point(20, 23);
+            splitContainer1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.richTextBoxMessages);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            splitContainer1.Panel1.Controls.Add(richTextBoxMessages);
+            splitContainer1.Panel1.Controls.Add(label1);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.listBoxClients);
-            this.splitContainer1.Panel2.Controls.Add(this.label3);
-            this.splitContainer1.Size = new System.Drawing.Size(581, 381);
-            this.splitContainer1.SplitterDistance = 381;
-            this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 5;
+            splitContainer1.Panel2.Controls.Add(listBoxClients);
+            splitContainer1.Panel2.Controls.Add(label3);
+            splitContainer1.Size = new System.Drawing.Size(830, 635);
+            splitContainer1.SplitterDistance = 544;
+            splitContainer1.SplitterWidth = 7;
+            splitContainer1.TabIndex = 5;
             // 
             // richTextBoxMessages
             // 
-            this.richTextBoxMessages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBoxMessages.Location = new System.Drawing.Point(0, 15);
-            this.richTextBoxMessages.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.richTextBoxMessages.Name = "richTextBoxMessages";
-            this.richTextBoxMessages.ReadOnly = true;
-            this.richTextBoxMessages.Size = new System.Drawing.Size(381, 366);
-            this.richTextBoxMessages.TabIndex = 0;
-            this.richTextBoxMessages.Text = "";
+            richTextBoxMessages.Dock = System.Windows.Forms.DockStyle.Fill;
+            richTextBoxMessages.Location = new System.Drawing.Point(0, 25);
+            richTextBoxMessages.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            richTextBoxMessages.Name = "richTextBoxMessages";
+            richTextBoxMessages.ReadOnly = true;
+            richTextBoxMessages.Size = new System.Drawing.Size(544, 610);
+            richTextBoxMessages.TabIndex = 0;
+            richTextBoxMessages.Text = "";
             // 
             // listBoxClients
             // 
-            this.listBoxClients.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxClients.FormattingEnabled = true;
-            this.listBoxClients.ItemHeight = 15;
-            this.listBoxClients.Location = new System.Drawing.Point(0, 15);
-            this.listBoxClients.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.listBoxClients.Name = "listBoxClients";
-            this.listBoxClients.Size = new System.Drawing.Size(195, 366);
-            this.listBoxClients.TabIndex = 1;
+            listBoxClients.Dock = System.Windows.Forms.DockStyle.Fill;
+            listBoxClients.FormattingEnabled = true;
+            listBoxClients.ItemHeight = 25;
+            listBoxClients.Location = new System.Drawing.Point(0, 25);
+            listBoxClients.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            listBoxClients.Name = "listBoxClients";
+            listBoxClients.Size = new System.Drawing.Size(279, 610);
+            listBoxClients.TabIndex = 1;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 15);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Clients:";
+            label3.AutoSize = true;
+            label3.Dock = System.Windows.Forms.DockStyle.Top;
+            label3.Location = new System.Drawing.Point(0, 0);
+            label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(68, 25);
+            label3.TabIndex = 0;
+            label3.Text = "Clients:";
             // 
             // FormServer
             // 
-            this.AcceptButton = this.buttonSend;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 442);
-            this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.buttonSend);
-            this.Controls.Add(this.textBoxMessage);
-            this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "FormServer";
-            this.Text = "Server";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AcceptButton = buttonSend;
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(870, 737);
+            Controls.Add(splitContainer1);
+            Controls.Add(buttonSend);
+            Controls.Add(textBoxMessage);
+            Controls.Add(label2);
+            Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            Name = "FormServer";
+            Text = "Server";
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

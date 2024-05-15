@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>Net5.0</TargetFramework>
+		<TargetFramework>Net8.0</TargetFramework>
 		<LangVersion>8.0</LangVersion>
 		<PackageId>NetCoreNamedPipeWrapper</PackageId>
+		<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
 		<PackageProjectUrl>https://github.com/Joebu/NamedPipeWrapper</PackageProjectUrl>
 		<Description>Create named pipe servers that can handle multiple client connections simultaneously.
 
@@ -15,10 +16,10 @@ Supports large messages - up to 300 MiB.
 The package was forked from NamedPipeWrapper 1.4.0 creadted by Andrew C. Dvorak and the original project url is https://github.com/acdvorak/named-pipe-wrapper.</Description>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>namedpipe pipe .netcore</PackageTags>
-		<Version>1.0.4</Version>
+		<Version>2.0.5</Version>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="NamedPipeServerStream.NetFrameworkVersion" Version="1.0.8" />
-		<PackageReference Include="System.Diagnostics.EventLog" Version="5.0.1" />
+		<PackageReference Include="NamedPipeServerStream.NetFrameworkVersion" Version="1.1.13" />
+		<PackageReference Include="System.Diagnostics.EventLog" Version="8.0.0" />
 	</ItemGroup>
 </Project>
