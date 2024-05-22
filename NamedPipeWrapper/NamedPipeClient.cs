@@ -4,6 +4,7 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using NamedPipeWrapper.IO;
 using NamedPipeWrapper.Threading;
 
@@ -58,7 +59,7 @@ namespace NamedPipeWrapper
 
         private readonly string _pipeName;
         private NamedPipeConnection<TRead, TWrite> _connection;
-
+        private CancellationTokenSource cancellationTokenSource;
         private readonly AutoResetEvent _connected = new AutoResetEvent(false);
         private readonly AutoResetEvent _disconnected = new AutoResetEvent(false);
 
@@ -87,9 +88,10 @@ namespace NamedPipeWrapper
         public void Start()
         {
             _closedExplicitly = false;
+            cancellationTokenSource = new CancellationTokenSource();
             var worker = new Worker();
             worker.Error += OnError;
-            worker.DoWork(ListenSync);
+            worker.DoWork(async ()=> await ListenAsync(cancellationTokenSource.Token));
         }
 
         /// <summary>
@@ -107,6 +109,7 @@ namespace NamedPipeWrapper
         /// </summary>
         public void Stop()
         {
+            cancellationTokenSource?.Cancel();
             _closedExplicitly = true;
             if (_connection != null)
                 _connection.Close();
@@ -151,7 +154,7 @@ namespace NamedPipeWrapper
         private void ListenSync()
         {
             // Get the name of the data pipe that should be used from now on by this NamedPipeClient
-            var handshake = PipeClientFactory.Connect<string, string>(_pipeName,_serverName);
+            var handshake =  PipeClientFactory.Connect<string, string>(_pipeName,_serverName);
             var dataPipeName = handshake.ReadObject();
             handshake.Close();
 
@@ -164,7 +167,24 @@ namespace NamedPipeWrapper
             _connection.ReceiveMessage += OnReceiveMessage;
             _connection.Error += ConnectionOnError;
             _connection.Open();
+            _connected.Set();
+        }
+        private async Task ListenAsync(CancellationToken cancellationToken)
+        {
+            // Get the name of the data pipe that should be used from now on by this NamedPipeClient
+            var handshake = await PipeClientFactory.ConnectAsync<string, string>(_pipeName,_serverName, cancellationToken);
+            var dataPipeName = handshake.ReadObject();
+            handshake.Close();
 
+            // Connect to the actual data pipe
+            var dataPipe = await PipeClientFactory.CreateAndConnectPipeAsync(dataPipeName,_serverName, cancellationToken);
+
+            // Create a Connection object for the data pipe
+            _connection = ConnectionFactory.CreateConnection<TRead, TWrite>(dataPipe);
+            _connection.Disconnected += OnDisconnected;
+            _connection.ReceiveMessage += OnReceiveMessage;
+            _connection.Error += ConnectionOnError;
+            _connection.Open();
             _connected.Set();
         }
 
@@ -215,11 +235,23 @@ namespace NamedPipeWrapper
         {
             return new PipeStreamWrapper<TRead, TWrite>(CreateAndConnectPipe(pipeName,serverName));
         }
+        public static async Task<PipeStreamWrapper<TRead, TWrite>> ConnectAsync<TRead, TWrite>(string pipeName,string serverName, CancellationToken cancellationToken)
+            where TRead : class
+            where TWrite : class
+        {
+            return new PipeStreamWrapper<TRead, TWrite>(await CreateAndConnectPipeAsync(pipeName,serverName, cancellationToken));
+        }
 
         public static NamedPipeClientStream CreateAndConnectPipe(string pipeName, string serverName)
         {
             var pipe = CreatePipe(pipeName, serverName);
             pipe.Connect();
+            return pipe;
+        }
+        public static async Task<NamedPipeClientStream> CreateAndConnectPipeAsync(string pipeName, string serverName, CancellationToken cancellationToken)
+        {
+            var pipe = CreatePipe(pipeName, serverName);
+            await pipe.ConnectAsync(cancellationToken);
             return pipe;
         }
 
