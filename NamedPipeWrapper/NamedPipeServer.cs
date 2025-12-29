@@ -89,7 +89,7 @@ namespace NamedPipeWrapper
             _shouldKeepRunning = true;
             var worker = new Worker();
             worker.Error += OnError;
-            worker.DoWork(ListenSync);
+            worker.DoWork(ListenSync, System.Threading.CancellationToken.None);
         }
 
         /// <summary>

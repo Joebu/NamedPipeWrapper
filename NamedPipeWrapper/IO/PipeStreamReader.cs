@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
-using System.Linq;
 using System.Net;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
 
 namespace NamedPipeWrapper.IO
 {
@@ -25,8 +22,6 @@ namespace NamedPipeWrapper.IO
         /// Gets a value indicating whether the pipe is connected or not.
         /// </summary>
         public bool IsConnected { get; private set; }
-
-        private readonly BinaryFormatter _binaryFormatter = new BinaryFormatter();
 
         /// <summary>
         /// Constructs a new <c>PipeStreamReader</c> object that reads data from the given <paramref name="stream"/>.
@@ -61,14 +56,18 @@ namespace NamedPipeWrapper.IO
             return IPAddress.NetworkToHostOrder(BitConverter.ToInt32(lenbuf, 0));
         }
 
-        /// <exception cref="SerializationException">An object in the graph of type parameter <typeparamref name="T"/> is not marked as serializable.</exception>
         private T ReadObject(int len)
         {
             var data = new byte[len];
             BaseStream.Read(data, 0, len);
-            using (var memoryStream = new MemoryStream(data))
+            try
             {
-                return (T) _binaryFormatter.Deserialize(memoryStream);
+                return JsonSerializer.Deserialize<T>(data);
+            }
+            catch
+            {
+                // If any exception in the deserialize, return null.
+                return null;
             }
         }
 
@@ -79,7 +78,6 @@ namespace NamedPipeWrapper.IO
         /// or the pipe is disconnected.
         /// </summary>
         /// <returns>The next object read from the pipe, or <c>null</c> if the pipe disconnected.</returns>
-        /// <exception cref="SerializationException">An object in the graph of type parameter <typeparamref name="T"/> is not marked as serializable.</exception>
         public T ReadObject()
         {
             var len = ReadLength();

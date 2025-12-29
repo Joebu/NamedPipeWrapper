@@ -91,7 +91,7 @@ namespace NamedPipeWrapper
             cancellationTokenSource = new CancellationTokenSource();
             var worker = new Worker();
             worker.Error += OnError;
-            worker.DoWork(async ()=> await ListenAsync(cancellationTokenSource.Token));
+            worker.DoWork(async ()=> await ListenAsync(cancellationTokenSource.Token), cancellationTokenSource.Token);
         }
 
         /// <summary>

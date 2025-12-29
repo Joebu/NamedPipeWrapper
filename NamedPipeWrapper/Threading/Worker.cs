@@ -33,9 +33,9 @@ namespace NamedPipeWrapper.Threading
             _callbackThread = callbackThread;
         }
 
-        public void DoWork(Action action)
+        public void DoWork(Action action, CancellationToken cancellationToken)
         {
-            new Task(DoWorkImpl, action, CancellationToken.None, TaskCreationOptions.LongRunning).Start();
+            new Task(DoWorkImpl, action, cancellationToken, TaskCreationOptions.LongRunning).Start();
         }
 
         private void DoWorkImpl(object oAction)
